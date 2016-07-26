@@ -1,0 +1,9 @@
+Package: metacity-theme-Gnomesmite
+Version: 0.0.1
+Architecture: all
+Essential: no
+Section: gnome
+Priority: optional
+Depends: metacity
+Maintainer: Hans Kramer
+Description: Metacity Themes collected by Hans Kramer

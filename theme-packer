@@ -1,0 +1,35 @@
+#! /bin/bash
+#
+# \Author   Hans Kramer
+#
+# \Date     July 2016
+#
+
+
+download() {
+    file_name=$(basename $URL)
+    rm -f $file_name
+    wget $URL
+}
+
+
+unpack() {
+    rm -rf work/*
+    tar -C work -xf 170435-Gnomesmite.tar.gz
+}
+
+
+create_arch() {
+    
+}
+
+
+theme_config=Gnomesmite
+
+source $theme_config
+
+#download
+
+#unpack
+
+create_arch
