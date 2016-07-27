@@ -7,29 +7,46 @@
 
 
 download() {
-    file_name=$(basename $URL)
-    rm -f $file_name
+    rm -f $filename
     wget $URL
 }
 
 
 unpack() {
-    rm -rf work/*
-    tar -C work -xf 170435-Gnomesmite.tar.gz
+    #rm -rf work/*
+    BASEPATH=$TYPE/$NAME-$VERSION
+    mkdir -p ${BASEPATH}/DEBIAN
+    mkdir -p ${BASEPATH}/usr/share/themes/
+    tar -C ${BASEPATH}/usr/share/themes/ -xf $filename
+    cat <<-EOF > ${BASEPATH}/DEBIAN/control
+	Package: metacity-theme-$NAME
+	Version: $VERSION
+	Architecture: all
+	Essential: no
+	Section: gnome
+	Priority: optional
+	Depends: metacity
+	Maintainer: Hans Kramer
+	Description: Metacity Themes collected by Hans Kramer
+	EOF
 }
 
 
-create_arch() {
-    
+create_pkg() {
+    cd $TYPE
+    dpkg --build $NAME-$VERSION    
 }
 
 
-theme_config=Gnomesmite
+#theme_config=Gnomesmite
+theme_config=$1
 
 source $theme_config
 
-#download
+filename=$(basename $URL)
 
-#unpack
+download
 
-create_arch
+unpack
+
+create_pkg
